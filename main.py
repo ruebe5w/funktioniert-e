@@ -5,7 +5,7 @@ import mysql.connector
 
 #variable
 token = ''
-wiederholungen = 10000
+wiederholungen = 10
 times = []
 
 #einlesen des Tokens

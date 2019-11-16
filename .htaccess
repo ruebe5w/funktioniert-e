@@ -1,0 +1,5 @@
+AuthType Basic
+AuthName "Passwortgeschützter Bereich"
+AuthUserFile /kunden/homepages/19/d742913086/htdocs/de.funktioniert-e.data/.htpasswd
+require valid-user
+DirectoryIndex index.html
