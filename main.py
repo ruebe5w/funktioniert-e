@@ -1,6 +1,7 @@
 import requests
 import json
 import time
+import MySQLdb
 
 token = ''
 #einlesen des Tokens
