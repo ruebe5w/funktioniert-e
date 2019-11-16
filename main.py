@@ -2,7 +2,15 @@ import requests
 import json
 import time
 
-headers = {'Content-Type':'application/json', 'Accept': 'application/json', 'Authorization': 'Bearer 09f116f7-7e97-4fe6-b006-731689e57d9e'}
+token = ''
+#einlesen des Tokens
+fobj = open("token.dat")
+for line in fobj:
+	token = line.rstrip()
+fobj.close()
+
+
+headers = {'Content-Type':'application/json', 'Accept': 'application/json', 'Authorization': 'Bearer ' + token}
 root = 'https://www.intern-e.evlka.de/toro/api/v1/'
 
 data = {'message':'Diese Nachricht wurde über Python an Intern-E verschickt.'}
