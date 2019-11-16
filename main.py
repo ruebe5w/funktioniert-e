@@ -5,7 +5,8 @@ import mysql.connector
 
 #variable
 token = ''
-
+wiederholungen = 10000
+times = []
 
 #einlesen des Tokens
 fobj = open("token.dat")
@@ -32,11 +33,17 @@ def post(data, id, command1, command2):
         print(resp.status_code)
     print(resp.json())
 
+#Array zur wiederholten Anwendung
+for x in range(wiederholungen): 
+	start = time.time()
+	post(data, id, command1, command2)
+	ende = time.time()
+	usedTime = ende - start
+	times.append(usedTime)
 
-start = time.time()
-post(data, id, command1, command2)
-ende = time.time()
-usedTime = ende - start
+
+
+
 print('{:5.3f}s'.format(ende - start))
 data={'message':'Diese Nachricht hat '+'{:5.3f}s'.format(ende - start)+' zum Senden gebraucht.'}
 post(data,id,command1,command2)
@@ -50,11 +57,14 @@ dbconnect = mysql.connector.connect(
 	password='eDSTM7AHMFzJa7nM'
 )
 dbcursor = dbconnect.cursor()
-sql = "INSERT INTO INTERNEEVLKA (datetime, runtime) VALUES(%s, %s)"
-val = (time.strftime('%Y-%m-%d %H:%M:%S'), usedTime*100)
 
-dbcursor.execute(sql, val)
+for x in range(wiederholungen):
+	sql = "INSERT INTO INTERNEEVLKA (datetime, runtime) VALUES(%s, %s)"
+	val = (time.strftime('%Y-%m-%d %H:%M:%S'), times[x]*100)
+	dbcursor.execute(sql, val)
+
+
+
 
 dbconnect.commit()
-
 print(dbcursor.rowcount, "record inserted.")
