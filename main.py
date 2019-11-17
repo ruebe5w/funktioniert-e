@@ -59,8 +59,8 @@ dbconnect = mysql.connector.connect(
 dbcursor = dbconnect.cursor()
 
 for x in range(wiederholungen):
-	sql = "INSERT INTO INTERNEEVLKA (datetime, runtime) VALUES(%s, %s)"
-	val = (time.strftime('%Y-%m-%d %H:%M:%S'), times[x]*100)
+	sql = "INSERT INTO INTERNEEVLKA (datetime,type, runtime) VALUES(%s, %s)"
+	val = (time.strftime('%Y-%m-%d %H:%M:%S'), "group-message", times[x]*100)
 	dbcursor.execute(sql, val)
 
 
